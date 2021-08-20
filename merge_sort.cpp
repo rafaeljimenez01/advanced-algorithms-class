@@ -1,16 +1,17 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
+#include <string>
 
 using namespace std;
-void helper_fun(vector <int> &v);
-void mergeSort(int inicio, int fin, vector<int>&v);
-void merge(int inicio, int fin, vector<int>& v);
 
-void helper_fun(vector<int>& v)
-{
-	
-	mergeSort(0, v.size() - 1,v);
-	
+void mergeSort(const int &SIZE, float v[]);
+void mergeSort(int start, int end, float v[]);
+void merge(int start, int end, float v[]);
+
+void mergeSort(float v[], const int &SIZE)
+{	
+	mergeSort(0, SIZE - 1, v);
 }
 
 /*
@@ -22,13 +23,14 @@ void helper_fun(vector<int>& v)
 *		Complejidad: O(n log2(n))
 */
 
-void mergeSort(int inicio, int fin, vector <int>& v)
+void mergeSort(int start, int end, float v[])
 {
-	if (inicio < fin) {
-		int centro = (inicio + fin) / 2;
-		mergeSort(inicio, centro, v);
-		mergeSort(centro + 1, fin, v);
-	 merge(inicio, fin, v);
+	if (start < end) {
+		int mid = (start + end) / 2;
+
+		mergeSort(start, mid, v);
+		mergeSort(mid + 1, end, v);
+	 	merge(start, end, v);
 	}
 }
 
@@ -40,50 +42,65 @@ void mergeSort(int inicio, int fin, vector <int>& v)
 *		Complejidad: O(n)
 */
 
-void merge(int inicio, int fin, vector<int>&v)
+void merge(int start, int end, float v[])
 {
-	int half = (inicio + fin) / 2;
-	int j = inicio;
-	int k = half + 1;
-	int size = fin - inicio + 1;
-	vector <int> vauxiliar;
-	for (int i = 0; i < size; i++) {
-			if (j <= half && k <= fin) {
+	const int MID = (start + end) / 2;
+	const int SIZE = end - start + 1;
+	int j = start;
+	int k = MID + 1;
+ 	float vauxiliar[SIZE];
+
+	for (int i = 0; i < SIZE; i++) {
+			if (j <= MID && k <= end) {
 				
 				if (v[j] < v[k]) {
-					vauxiliar.push_back(v[j++]);
+					vauxiliar[i] = v[j++];
 				}
 				else {
-					vauxiliar.push_back(v[k++]);
+					vauxiliar[i] = v[k++];
 				}
 			}
-			else if (j <= half) {
+			else if (j <= MID) {
 				
-				vauxiliar.push_back(v[j++]);
+				vauxiliar[i] = v[j++];
 			}
 			else {
 				
-				vauxiliar.push_back(v[k++]);
+				vauxiliar[i] = v[k++];
 			}
 	}
-	for (int m = 0; m < size; m++) {
-		v[inicio + m] = vauxiliar[m];
+
+	for (int m = 0; m < SIZE; m++) {
+		v[start + m] = vauxiliar[m];
 	}
 }
 
 
 
-int main(){
+int main() {
+	std::ifstream file("tests.txt");
+	
+	if(file.is_open()) {
+		while(!file.eof()) {
+			int tmp;
+			file >> tmp;
 
-    vector<int> test{12,15,1,3,4,5,55,12,66,4};
+			const int SIZE = tmp;
+			float input[SIZE];
 
- 	helper_fun(test);
+			for(int i = 0; i < SIZE; ++i) {
+				file >> input[i];
+			}
 
-    for (auto i = test.begin(); i != test.end(); ++i){
-        std::cout << *i << ' ';
-    }
-    cout << "test" << endl;
+			mergeSort(input, SIZE);
+
+			for (int i = 0; i < SIZE; ++i){
+				std::cout << input[i] << ' ';
+			}
+
+			std::cout << '\n';
+		}
+	}
 
     return 0;
 }
-
