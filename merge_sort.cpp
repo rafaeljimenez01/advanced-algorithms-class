@@ -53,7 +53,7 @@ void merge(int start, int end, float v[])
 	for (int i = 0; i < SIZE; i++) {
 			if (j <= MID && k <= end) {
 				
-				if (v[j] < v[k]) {
+				if (v[j] > v[k]) {
 					vauxiliar[i] = v[j++];
 				}
 				else {
