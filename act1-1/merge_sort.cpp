@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <string>
 
 using namespace std;
@@ -17,9 +16,9 @@ void mergeSort(float v[], const int &SIZE)
 /*
 *		Función Merge Sort
 *		Utiliza el metodo de ordenamiento Merge Sort
-*		Parametros de entrada: Recibe el indice de inicio del vector, el indice de fin, 
-*		el vector por referencia, un entero que guarda las comparaciones por referencia
-*		Valor de retorno: Un contador del numero de comparaciones que realiza el metodo para ordenar el vector.
+*		Parametros de entrada: Recibe el indice de inicio del arreglo, el indice de fin, 
+*		el arreglo 
+*		Valor de retorno: NA
 *		Complejidad: O(n log2(n))
 */
 
@@ -37,8 +36,8 @@ void mergeSort(int start, int end, float v[])
 /*
 *		Utiliza el metodo de ordenamiento Merge Sort
 *		Parametros de entrada: Recibe el indice de inicio del vector, el indice de fin, 
-*		el vector por referencia, un entero que guarda las comparaciones por referencia
-*		Valor de retorno: Ninguno.
+*		el arreglo 
+*		Valor de retorno: NA
 *		Complejidad: O(n)
 */
 
