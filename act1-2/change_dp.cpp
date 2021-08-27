@@ -37,8 +37,8 @@ std::vector<int*> changeDp(std::vector<int> &coins, const int &change) {
 
   for(size_t money = 1; money <= change; ++money) {
     for(int &coin : coins) { //checks every coin in the coins array
-      if(coin <= money && solution[money - coin] <solution[money]) {
-          solution[money] = &coin;
+      if(coin <= money && solution[money - coin] < solution[money]) { //checks if coin its smaller or equal to the missing then checks if using this
+          solution[money] = &coin;                                    //coin the total ammount of coins is reduced
       }
     }
   }
