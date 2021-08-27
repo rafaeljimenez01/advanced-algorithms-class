@@ -36,7 +36,7 @@ std::vector<int*> changeDp(std::vector<int> &coins, const int &change) {
   std::vector<int*> solution(change + 1, nullptr);
 
   for(size_t money = 1; money <= change; ++money) {
-    for(int &coin : coins) {
+    for(int &coin : coins) { //checks every coin in the coins array
       if(coin <= money && solution[money - coin] <solution[money]) {
           solution[money] = &coin;
       }
@@ -49,18 +49,18 @@ std::vector<int*> changeDp(std::vector<int> &coins, const int &change) {
 std::vector<int*> changeGreedy(std::vector<int> coins, int m) {
 
   // sort(coins.begin(), coins.end(), std::greater<int>());
-  int current = 0;
+  int current = 0; //index of the biggest coin possible
   std::vector<int*> solution;
 
   while (m > 0){
-    if (m - coins[current] >= 0){
-      solution.push_back(&coins[current]);
-      m -= coins[current];
+    if (m - coins[current] >= 0){ //checks if the biggest coin yet it's possible to use
+      solution.push_back(&coins[current]); //if so add it to the solution
+      m -= coins[current]; //reduce the change
     }
     else{
-      current += 1;
+      current += 1; //if the coins its bigger that the missing change we should look to the next biggest coin
       if (current >= coins.size()) {
-        std::cout << "u trying to trick me nigga" << std::endl;
+        std::cout << "You have choosen a set of coins that can't make up to the change" << std::endl;
         break;
       }
     }
