@@ -4,11 +4,11 @@
 /*******************************************************************************
  * Prints solution.
  * 
- * Time complexity O(w).
- * Space complexity O(w).
+ *  - Time complexity O(w).
+ *  - Space complexity O(w).
  * 
- * Where w is the size of the solution or the number of needed coins.
- ******************************************************************************/
+ * Where w is the minimum number of needed coins to achieve the neede change.
+*******************************************************************************/
 void print(const std::vector<int*> &minCoins, int change) {
   while(change > 0) {
     std::cout << *minCoins[change] << std::endl;
@@ -27,18 +27,22 @@ void print(const std::vector<int*> &minCoins, int change) {
  * saves it in memory for later use. For each sub-problem it tries every coin.
  * Thus:
  *  - Time Complexity O(n * m)
- *  - Space Complexity O(n)
+ *  - Space Complexity O(n^2)
  * 
  *    Where n is the amount of change and m is the amount of different coin's
  * denomination.
 *******************************************************************************/
 std::vector<int*> changeDp(std::vector<int> &coins, const int &change) {
   std::vector<int*> solution(change + 1, nullptr);
+  std::vector<int> minCoins(change + 1, change);
+
+  minCoins[0] = 0;
 
   for(size_t money = 1; money <= change; ++money) {
     for(int &coin : coins) {
-      if(coin <= money && solution[money - coin] <solution[money]) {
+      if(coin <= money && minCoins[money - coin] < minCoins[money]) {
           solution[money] = &coin;
+          minCoins[money] = minCoins[money - coin]  + 1;
       }
     }
   }
@@ -91,13 +95,13 @@ int n,        //number of coins
   std::cin >> p;
   std::cout << "Enter amount received" << std::endl;
   std::cin >> q;
-  change = p - q;
+  change = q - p;
 
   std::cout << "Dynamic programing solution:" << std::endl;
   print(changeDp(coins, change), change);
 
-  std::cout << "Greedy solution:" << std::endl;
-  print(changeGreedy(coins, change), change);
+  // std::cout << "Greedy solution:" << std::endl;
+  // print(changeGreedy(coins, change), change);
 
   return 0;
 }
