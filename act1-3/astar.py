@@ -62,7 +62,7 @@ class AStar:
 						open_set.put((neighbor, count))
 						open_set_hash.add(neighbor)
 
-		return []
+		return [ [0] * (self.end[1] + 1) for _ in range(self.end[0] + 1) ]
 
 
 class Node:
