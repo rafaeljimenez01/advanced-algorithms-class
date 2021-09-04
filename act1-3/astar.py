@@ -141,9 +141,62 @@ class Node:
 
 def main():
 	with open("tests.txt") as reader:
-		height = int(reader.readline())
-		width = int(reader.readline())		
+		'''
+    First test case
 
-		print(AStar([reader.readline()[:-1:2] for i in range(height)], height, width).solve())
+    This test case, checks if the backtracking it's correct because of the order of decision
+    the algorithm will find a dead end and will have to backtrack 4 steps checking if the recursion 
+    is well structured
 
+    ''' 
+	print("First test case")
+	with open("tests.txt") as reader:
+		M = int(reader.readline())
+        N = int(reader.readline())		
+
+    	print(AStar([reader.readline()[:-1:2] for i in range(M)],M,N).solve())
+      
+	'''
+    Second test case
+
+    Checks if the algorithm does not has problems when having to move up 
+
+    '''
+	print("Second test case")
+	with open("tests1.txt") as reader:
+		M = int(reader.readline())
+        N = int(reader.readline())
+		
+		print(AStar([reader.readline()[:-1:2] for i in range(M)],M,N).solve())
+
+
+	'''
+    Third test case
+    
+    Solution test case, test if even having the option to cycle the algorithm won't
+    This means that we are liberating the paths properly
+    
+    '''
+	print("Third test case")
+	with open("tests2.txt") as reader:
+		M = int(reader.readline())
+        N = int(reader.readline())		
+
+        print(AStar([reader.readline()[:-1:2] for i in range(M)],M,N).solve())
+
+	'''
+    Fourth test case
+
+    Checks if the algorithm it's in fact taking the first possible option, 
+    so the algorithm it's the most time efficient possible 
+
+    '''
+
+	print("Fourth test case")
+	with open("tests3.txt") as reader:
+		M = int(reader.readline())
+        N = int(reader.readline())		
+
+        print(AStar([reader.readline()[:-1:2] for i in range(M)],M,N).solve())
+		
 main()
