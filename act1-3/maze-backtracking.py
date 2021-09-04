@@ -123,7 +123,8 @@ if __name__ == "__main__":
     '''
     Third test case
     
-    No solution test case, test if even having the option to cycle the algorithm won't
+    Solution test case, test if even having the option to cycle the algorithm won't
+    This means that we are liberating the paths properly
     
     '''
     print("Third test case")
