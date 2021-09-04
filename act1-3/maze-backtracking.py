@@ -18,6 +18,7 @@ def maze_solver(M, N, maze):
     #This function it's in charge of the recursive portion of the algorith
     #Time complexity:   O(4^n) because for each step of the maze, the recursion tree can take 4 different choices
     #Space complexity: O(n*n) because the solution matrix depends solely on the size of the input 
+    ###### Base con the rat in a maze code in gfg https://www.geeksforgeeks.org/rat-in-a-maze-backtracking-2/
 
     def helper(x, y, maze_helper, solution):
 
