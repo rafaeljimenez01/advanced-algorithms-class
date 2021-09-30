@@ -13,15 +13,3 @@ if __name__ == "__main__":
     for _ in range(int(input())):
         row = input().split(' ')
         adjacency_matrix.append([int(edge) for edge in row])
-
-
-}
-
-    
-
-
-    
-
-    
-
-    
