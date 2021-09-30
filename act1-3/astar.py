@@ -73,7 +73,7 @@ class AStar:
 
 			# solution is found.
 			if current.is_end(self.end):
-				return self.reconstruct_path(came_from, self.end)
+				print('\n'.join([''.join(['{:4}'.format(item) for item in row]) for row in self.reconstruct_path(came_from, current.get_pos())]))
 
 			# checks all neighbors as a future step.
 			for neighbor in current.neighbors:
@@ -91,7 +91,6 @@ class AStar:
 						open_set.put((neighbor, count))
 						open_set_hash.add(neighbor)
 
-		return self.reconstruct_path(came_from, current.get_pos())
 
 
 class Node:
@@ -123,13 +122,13 @@ class Node:
 	# out of bound wiht respect to the maze's dimension.
 	# Time complexity: O(1)
 	def update_neighbors(self, maze):
-		if self.row < len(maze) - 1 and not maze[self.row + 1][self.col].is_barrier(): # DOWN
+		if self.row < len(maze) - 1  and not maze[self.row + 1][self.col].is_barrier(): # DOWN
 			self.neighbors.append(maze[self.row + 1][self.col])
 
 		if self.row > 0 and not maze[self.row - 1][self.col].is_barrier(): # UP
 			self.neighbors.append(maze[self.row - 1][self.col])
 
-		if self.col < len(maze) - 1 and not maze[self.row][self.col + 1].is_barrier(): # RIGHT
+		if self.col < len(maze[0]) - 1 and not maze[self.row][self.col + 1].is_barrier(): # RIGHT
 			self.neighbors.append(maze[self.row][self.col + 1])
 
 		if self.col > 0 and not maze[self.row][self.col - 1].is_barrier(): # LEFT
@@ -152,9 +151,8 @@ def main():
 	print("First test case")
 	with open("tests.txt") as reader:
 		M = int(reader.readline())
-        N = int(reader.readline())		
-
-    	print(AStar([reader.readline()[:-1:2] for i in range(M)],M,N).solve())
+		N = int(reader.readline())
+		print(AStar([reader.readline()[:-1:2] for i in range(M)],M,N).solve())
       
 	'''
     Second test case
@@ -165,7 +163,7 @@ def main():
 	print("Second test case")
 	with open("tests1.txt") as reader:
 		M = int(reader.readline())
-        N = int(reader.readline())
+		N = int(reader.readline())
 		
 		print(AStar([reader.readline()[:-1:2] for i in range(M)],M,N).solve())
 
@@ -180,9 +178,9 @@ def main():
 	print("Third test case")
 	with open("tests2.txt") as reader:
 		M = int(reader.readline())
-        N = int(reader.readline())		
-
-        print(AStar([reader.readline()[:-1:2] for i in range(M)],M,N).solve())
+		N = int(reader.readline())
+		
+		print(AStar([reader.readline()[:-1:2] for i in range(M)],M,N).solve())
 
 	'''
     Fourth test case
@@ -195,8 +193,8 @@ def main():
 	print("Fourth test case")
 	with open("tests3.txt") as reader:
 		M = int(reader.readline())
-        N = int(reader.readline())		
-
-        print(AStar([reader.readline()[:-1:2] for i in range(M)],M,N).solve())
+		N = int(reader.readline())
+		
+		AStar([reader.readline()[:-1:2] for i in range(M)],M,N).solve()
 		
 main()
