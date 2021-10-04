@@ -1,15 +1,73 @@
-import sys
+import heapq
 
+def dijksra(graph, origin):
+    # Dictionary that stores another dictionary to map a node with all other
+    # neighbors and the shortest distance to travel to each other.
+    # (e.g {node: {neighbor_1: dist, neighbor_2: dist, ...}})
+    distances = {node: float('inf') for node in graph}
+    # tuple's list that holds the nodes to be vistied. Each tuple holds the 
+    # distance to the node from the origin and the node to be visited. The order
+    # in which the nodes will be visited depend on the distance value.
+    priority_queue = [(0, origin)]
+    
+    # Distance from  oirign to itlsef set to 0.
+    distances[origin] = 0
 
-def relax(u, v, distance, current_cost):
-    pass
+    # Iterate through priority queue until empty.
+    while priority_queue:
+        # Pop node with smallest distance.
+        current_distance, current_node = heapq.heappop(priority_queue)
 
-def dijkstra(adjacency_matrix, origin):
-    pass
+        # Only analize node if the distance to current node is not grater.  
+        if current_distance <= distances[current_node]:
+            for neighbor, traveled_distance in graph[current_node].items():
+                distance = current_distance + traveled_distance
+
+                # Only consider current path if it's better than any path analyzed
+                # befoire
+                if distance < distances[neighbor]:
+                    distances[neighbor] = distance
+                    heapq.heappush(priority_queue, (distance, neighbor))
+
+    return distances
+
+def print_dijkstra(graph):
+    # Print's header.
+    print("Dijkstra:")
+
+    # Prints distance from every node to every node.
+    for origin in graph.keys():
+        for end in graph[origin].keys():
+            if origin != end:
+                print("node {origin} to node {end}: {min_distance}".format(
+                    origin=origin+1, end=end+1, min_distance=graph[origin][end])
+                )
 
 if __name__ == "__main__":
-    adjacency_matrix = []
+    # Dictionary that stores another dictionary to map a node with its neighbors
+    # and the distance from each other.
+    # (e.g {node: {neighbor_1: dist, neighbor_2: dist, ...}})
+    graph = {}
+    # Dictionary that stores another dictionary to map a node with all other
+    # neighbors and the shortest distance to travel to each other.
+    # (e.g {node: {neighbor_1: dist, neighbor_2: dist, ...}})
+    solution = {}
 
-    for _ in range(int(input())):
-        row = input().split(' ')
-        adjacency_matrix.append([int(edge) for edge in row])
+    # Open file to load graph.
+    with open("test.txt") as reader:
+        # Iterates for all nodes.
+        for node in range(int(reader.readline())):
+            # Initiate current node's neighbor dictionary.
+            graph |= {node: {}}
+
+            # Populate current node's neighbors dictionary.
+            for neighbor, distance in enumerate(reader.readline().split(' ')):
+                if distance != "-1" and neighbor != node:
+                    graph[node][neighbor] = int(distance)
+
+        # Run dijkstra algorithim for every node as origin.
+        for node in graph.keys():
+            # Populate solution
+            solution |= {node: dijksra(graph, node)}
+
+        print_dijkstra(solution)
