@@ -1,4 +1,5 @@
 import heapq
+from os import read
 
 def dijksra(graph, origin):
     # Dictionary that stores another dictionary to map a node with all other
@@ -55,19 +56,29 @@ if __name__ == "__main__":
 
     # Open file to load graph.
     with open("test.txt") as reader:
-        # Iterates for all nodes.
-        for node in range(int(reader.readline())):
-            # Initiate current node's neighbor dictionary.
-            graph |= {node: {}}
+        number = 0
+        size = reader.readline()
 
-            # Populate current node's neighbors dictionary.
-            for neighbor, distance in enumerate(reader.readline().split(' ')):
-                if distance != "-1" and neighbor != node:
-                    graph[node][neighbor] = int(distance)
+        while size != '':
+            number += 1
+            print("test {number}:\n".format(number=number))
+            # Iterates for all nodes.
+            for node in range(int(size)):
+                # Initiate current node's neighbor dictionary.
+                graph |= {node: {}}
 
-        # Run dijkstra algorithim for every node as origin.
-        for node in graph.keys():
-            # Populate solution
-            solution |= {node: dijksra(graph, node)}
+                # Populate current node's neighbors dictionary.
+                for neighbor, distance in enumerate(reader.readline().split(' ')):
+                    if distance != "-1" and neighbor != node:
+                        graph[node][neighbor] = int(distance)
 
-        print_dijkstra(solution)
+            # Run dijkstra algorithim for every node as origin.
+            for node in graph.keys():
+                # Populate solution
+                solution |= {node: dijksra(graph, node)}
+
+            print_dijkstra(solution)
+
+            # Set up for next iteration if any.
+            print("\n\n")
+            size = reader.readline()
