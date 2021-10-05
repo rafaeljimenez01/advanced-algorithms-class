@@ -10,7 +10,7 @@ Advanced algorithms class
 Authors:
 
 Rafael Jimenez A01637850
-Joshua Hernandez A01
+Joshua Hernandez A01246538
 
 
 '''
@@ -179,9 +179,21 @@ if __name__ == "__main__":
             #Run floyd for current graph
             print_floyd(floyd(graph_matrix))
             # Set up for next iteration if any.
+            graph_dict = {}
             graph_matrix = []
             solution = {}
             print("\n\n")
             size = reader.readline()        
 
-        
+
+# test case 1:
+#   General graph to ensure input is read properly and algorighms are working.
+
+# test case 2:
+#   edge case where graph is not strongly conected exept some nodes (node 2 and 6)
+
+# test case 3:
+#   edge cese where one node has no conection in or outbound with other node.
+
+# test case 4:
+# edge case graph is a cycle.
