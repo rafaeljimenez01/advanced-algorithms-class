@@ -65,17 +65,17 @@ if __name__ == "__main__":
             # Iterates for all nodes.
             for node in range(int(size)):
                 # Initiate current node's neighbor dictionary.
-                graph |= {node: {}}
+                graph.update({node: {}})
 
                 # Populate current node's neighbors dictionary.
                 for neighbor, distance in enumerate(reader.readline().split(' ')):
-                    if distance != "-1" and neighbor != node:
+                    if int(distance) != -1 and neighbor != node:
                         graph[node][neighbor] = int(distance)
 
             # Run dijkstra algorithim for every node as origin.
             for node in graph.keys():
                 # Populate solution
-                solution |= {node: dijksra(graph, node)}
+                solution.update({node: dijksra(graph, node)})
 
             print_dijkstra(solution)
 
