@@ -8,9 +8,9 @@ def optimal_profit(elements, knapsack_cap):
     for item, [value, weight] in enumerate(elements):
         # Iterate from 1 to knapsack's capacity.
         for current_cap in range(1, knapsack_cap + 1):
-            # Only get value from the row above or the value from a left column
-            # (current capacity - item's weight) in the row above + current 
-            # item's value.
+            # Only get value from the row above and same column or the value
+            # from a left column (current capacity - item's weight) in the row
+            # above + current item's value.
             if weight <= current_cap:
                 cost_table[item][current_cap] = max(
                     value + cost_table[item - 1][current_cap - weight],
@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
             elements = []
 
-            
+
             for value in range(int(element_amount)):
                 elements.append([int(reader.readline()), -1])
 
