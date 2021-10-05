@@ -128,11 +128,14 @@ def print_floyd(graph):
       for row in graph]))
 
 if __name__ == "__main__":
-    
+    #Value used to fill in matrix when there is no connection between two nodes
+    INF = float('inf')
     # Dictionary that stores another dictionary to map a node with its neighbors
     # and the distance from each other.
     # (e.g {node: {neighbor_1: dist, neighbor_2: dist, ...}})
-    graph = {}
+    graph_dict = {}
+    # Matrix created to read the txt as an adjency matrix
+    graph_matrix = []
     # Dictionary that stores another dictionary to map a node with all other
     # neighbors and the shortest distance to travel to each other.
     # (e.g {node: {neighbor_1: dist, neighbor_2: dist, ...}})
@@ -149,40 +152,36 @@ if __name__ == "__main__":
             # Iterates for all nodes.
             for node in range(int(size)):
                 # Initiate current node's neighbor dictionary.
-                graph.update({node: {}})
-
+                graph_dict.update({node: {}})
+                # Initiate row to read the graph as a matrix
+                current_row = []
                 # Populate current node's neighbors dictionary.
                 for neighbor, distance in enumerate(reader.readline().split(' ')):
                     if int(distance) != -1 and neighbor != node:
-                        graph[node][neighbor] = int(distance)
+                        graph_dict[node][neighbor] = int(distance)
 
+                    # When there is no connection between nodes we prefer 
+                    # to use infinite value so the algorithms logic is simpler
+                    if int(distance) == -1:
+                        current_row.append(INF)
+                    else:
+                        current_row.append(int(distance))
+                        
+                #Populate matrix
+                graph_matrix.append(current_row)
             # Run dijkstra algorithim for every node as origin.
-            for node in graph.keys():
+            for node in graph_dict.keys():
                 # Populate solution
-                solution.update({node: dijksra(graph, node)})
+                solution.update({node: dijksra(graph_dict, node)})
 
+            #Print dijkstra so it is easily readable
             print_dijkstra(solution)
-
+            #Run floyd for current graph
+            print_floyd(floyd(graph_matrix))
             # Set up for next iteration if any.
+            graph_matrix = []
+            solution = {}
             print("\n\n")
-            size = reader.readline()
-            
-            INF = float('inf')
+            size = reader.readline()        
+
         
-        #First test case, used to verify that the algorithms are working properly since
-        #we have a correct output to compare to
-        graph_test = [[0, 2, INF, 3],
-        [INF, 0, 1, 5],
-        [2, 3, 0,   INF],
-        [3, INF, 4, 0]
-        ]
-
-        #Second test case, 
-        graph_test1 = [[0, 2, INF],
-        [INF, 0, 3],
-        [4, INF, 0],
-        ]
-
-        print_dijkstra(solution)
-        print_floyd(floyd(graph_test))
-        print_floyd(floyd(graph_test1))
