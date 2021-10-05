@@ -1,6 +1,17 @@
 import heapq
 from os import read
 
+# INPUT:
+#   - graph: dictionary of dictionaries.
+#   - origin: int
+# OUTPUT:
+#   - dictionary of dictionaries.
+# DESCRIPTION:
+#   Finds shortest path to each and every node from a common origin.
+# Time Complexity: 
+#   O(V^2) where V is the number of nodes.
+# Space Complexity:
+#   O((E * V) * V) where V is the number of nodes and E is the number of edges.
 def dijksra(graph, origin):
     # Dictionary that stores another dictionary to map a node with all other
     # neighbors and the shortest distance to travel to each other.
@@ -32,6 +43,16 @@ def dijksra(graph, origin):
 
     return distances
 
+# INPUT:
+#   - graph: dictionary of dictionaries.
+# OUTPUT:
+#   - none.
+# DESCRIPTION:
+#   Prints the distnace from very node to every other node.
+# Time Complexity: 
+#   O(V^2) where V is the number of nodes.
+# Space Complexity:
+#   O(1)
 def print_dijkstra(graph):
     # Print's header.
     print("Dijkstra:")
