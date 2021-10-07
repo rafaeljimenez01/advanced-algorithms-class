@@ -1,5 +1,17 @@
 from os import read
 
+
+'''
+0/1 Knapsack solution using dp
+
+Advanced algorithms class
+
+Authors:
+
+Rafael Jimenez A01637850
+Joshua Hernandez A01246538
+
+'''
 def optimal_profit(elements, knapsack_cap):
     # initiate cost table (item amount * knapsack's capasity + 1 matrix).
     cost_table = [[0 for _ in range(knapsack_cap + 1)] for _ in range(len(elements))]
@@ -43,8 +55,26 @@ if __name__ == "__main__":
 
             knapsack_cap = int(reader.readline())
 
-            optimal_profit(elements, knapsack_cap)
+            print(optimal_profit(elements, knapsack_cap))
 
             # Next test set up.
-            print("\n\n")
+            
             element_amount = reader.readline()
+
+'''
+
+Test cases explanation 
+----------------------
+
+Test case 1: 
+Validate the algorithm since we have the output to compare to 
+
+Test case 2:
+What happens if all the possible items its heavier that the max capacity
+
+Test case 3:
+
+
+Test case 4:
+
+'''
